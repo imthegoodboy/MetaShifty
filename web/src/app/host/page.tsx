@@ -50,7 +50,7 @@ export default function HostDashboard() {
   const loadAdSlots = async () => {
     try {
       const res = await fetch('/api/slots');
-  const loadAds = async () => {
+    const loadAds = async () => {
     try {
       const res = await fetch('/api/ads/available');
       const data = await res.json();
@@ -170,6 +170,7 @@ export default function HostDashboard() {
           </div>
         </div>
 
+            };
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
           <div className="bg-white rounded-xl shadow-md p-6 border border-gray-100">
             <div className="flex items-center gap-3 mb-2">
@@ -177,6 +178,25 @@ export default function HostDashboard() {
                 <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                 </svg>
+            const createPlacement = async (campaignId: string) => {
+              try {
+                setShowEmbedCode(true);
+                setSelectedAd(null);
+                setPlacementUrl(null);
+                const res = await fetch('/api/placements/create', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ campaignId }),
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || 'Failed to create placement');
+                setPlacementUrl(data.url);
+                setSelectedAd({ campaignId, token: data.token, url: data.url });
+              } catch (err: any) {
+                alert(err.message || String(err));
+                setShowEmbedCode(false);
+              }
+            };
               </div>
               <h3 className="text-gray-600 text-sm font-medium">Total Slots</h3>
             </div>
