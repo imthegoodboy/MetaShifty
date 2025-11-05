@@ -236,19 +236,19 @@ export default function CreateCampaign() {
             {!formData.useFreeCampaign && (
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Budget (USD) *
+                  Budget (MATIC) *
                 </label>
                 <input
                   type="number"
                   required={!formData.useFreeCampaign}
-                  min="10"
-                  step="0.01"
+                  min="0.001"
+                  step="0.0001"
                   value={formData.budget}
                   onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                  placeholder="100.00"
+                  placeholder="1.0"
                 />
-                <p className="mt-2 text-sm text-gray-500">Minimum budget: $10.00</p>
+                <p className="mt-2 text-sm text-gray-500">Enter budget in MATIC. Paid campaigns require an on-chain payment during creation.</p>
               </div>
             )}
 
