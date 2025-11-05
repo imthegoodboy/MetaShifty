@@ -54,13 +54,62 @@ export default function DeveloperDashboard() {
         if (!me.user) return router.push('/signin');
         if (me.user.role !== 'host') return router.push('/dashboard'); // 'host' is used as developer role in DB
         setUser(me.user);
-        await loadAds();
+        await Promise.all([
+          loadAds(),
+          loadAnalytics(),
+          loadPlacements()
+        ]);
       } catch (e) {
         router.push('/signin');
       }
     };
     boot();
   }, []);
+
+  const loadPlacements = async () => {
+    try {
+      const res = await fetch('/api/placements/list');
+      const data = await res.json();
+      if (res.ok) {
+        setUserPlacements(data.placements || []);
+        // Update analytics based on placements
+        const analytics = calculateAnalytics(data.placements || []);
+        setAnalytics(analytics);
+      }
+    } catch (e) {
+      console.error('Failed to load placements:', e);
+    }
+  };
+
+  const loadAnalytics = async () => {
+    // In a real app, this would be an API call to get aggregated analytics
+    // For now, we'll calculate from placements
+    try {
+      const res = await fetch('/api/analytics/developer');
+      const data = await res.json();
+      if (res.ok) {
+        setAnalytics(data);
+      }
+    } catch (e) {
+      console.error('Failed to load analytics:', e);
+    }
+  };
+
+  const calculateAnalytics = (placements: any[]): Analytics => {
+    const total = placements.reduce((acc, p) => ({
+      impressions: acc.impressions + (p.impressions || 0),
+      clicks: acc.clicks + (p.clicks || 0),
+      earnings: acc.earnings + (p.earnings || 0)
+    }), { impressions: 0, clicks: 0, earnings: 0 });
+
+    return {
+      totalEarnings: total.earnings,
+      totalImpressions: total.impressions,
+      totalClicks: total.clicks,
+      activeTokens: placements.filter(p => p.status === 'active').length,
+      clickRate: total.impressions ? (total.clicks / total.impressions) * 100 : 0
+    };
+  };
 
   const loadAds = async () => {
     try {
