@@ -58,7 +58,7 @@ export default function SignInPage() {
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2 mb-4">
-            <Image src="/metashift-logo.svg" alt="MetaShift" width={50} height={50} />
+            <Image src="/images/metashift-logo.svg" alt="MetaShift" width={50} height={50} />
             <span className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent">
               MetaShift
             </span>
@@ -92,10 +92,11 @@ export default function SignInPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Connect Wallet (Optional)</label>
-              <div className="flex justify-center">
-                <ConnectButton />
-              </div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">(Wallet connect is not required to sign in)</label>
+                <div className="flex justify-center">
+                  {/* Intentionally not showing wallet connect on sign in to keep login simple.
+                      Users connect their wallet during signup (advertisers) or when performing on-chain actions. */}
+                </div>
             </div>
 
             {error && (

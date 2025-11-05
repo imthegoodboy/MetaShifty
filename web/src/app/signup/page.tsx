@@ -19,18 +19,14 @@ export default function SignUpPage() {
     e.preventDefault();
     setError('');
 
-    if (!isConnected) {
-      setError('Please connect your wallet first');
-      return;
-    }
-
+    // wallet is optional during signup; advertisers will connect/pay when creating campaigns
     setLoading(true);
 
     try {
       const res = await fetch('/api/auth/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password, role, walletAddress: address }),
+        body: JSON.stringify({ email, password, role, walletAddress: address || null }),
       });
 
       const data = await res.json();
@@ -55,9 +51,9 @@ export default function SignUpPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-white flex items-center justify-center px-4">
       <div className="max-w-md w-full">
-        <div className="text-center mb-8">
+          <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2 mb-4">
-            <Image src="/metashift-logo.svg" alt="MetaShift" width={50} height={50} />
+            <Image src="/images/metashift-logo.svg" alt="MetaShift" width={50} height={50} />
             <span className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent">
               MetaShift
             </span>
@@ -92,7 +88,7 @@ export default function SignUpPage() {
                     : 'border-gray-200 hover:border-blue-300'
                 }`}
               >
-                <div className="font-semibold mb-1">Host Ads</div>
+                <div className="font-semibold mb-1">Developer (Host)</div>
                 <div className="text-xs text-gray-600">Earn from your site</div>
               </button>
             </div>
@@ -122,13 +118,11 @@ export default function SignUpPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Connect Wallet</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Connect Wallet (optional)</label>
               <div className="flex justify-center">
                 <ConnectButton />
               </div>
-              {!isConnected && (
-                <p className="text-sm text-gray-500 mt-2 text-center">Required for blockchain transactions</p>
-              )}
+              <p className="text-sm text-gray-500 mt-2 text-center">Connect your wallet later when you create campaigns or perform on-chain actions.</p>
             </div>
 
             {error && (
@@ -139,7 +133,7 @@ export default function SignUpPage() {
 
             <button
               type="submit"
-              disabled={loading || !isConnected}
+              disabled={loading}
               className="w-full bg-gradient-to-r from-purple-600 to-blue-500 text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? 'Creating Account...' : 'Create Account'}
