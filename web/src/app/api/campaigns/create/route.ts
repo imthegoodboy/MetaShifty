@@ -22,8 +22,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Only advertisers can create campaigns" }, { status: 403 });
     }
 
-    const body = await req.json();
-    const { title, description, targetUrl, imageUrl, budget, useFreeCampaign } = body;
+  const body = await req.json();
+  const { title, description, targetUrl, imageUrl, budget, useFreeCampaign, txHash } = body;
 
     if (!title || !description || !targetUrl || !imageUrl) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
