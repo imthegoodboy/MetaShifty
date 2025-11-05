@@ -59,11 +59,14 @@ export default function CreateCampaign() {
       let txHash: string | null = null;
 
       if (!formData.useFreeCampaign) {
-        if (!signer) throw new Error('Please connect your wallet to pay for the campaign');
+        if (!(window as any).ethereum) throw new Error('Please connect your wallet to pay for the campaign');
         if (!formData.budget || Number(formData.budget) <= 0) throw new Error('Please provide a valid budget in MATIC');
 
         const treasury = process.env.NEXT_PUBLIC_TREASURY_ADDRESS;
         if (!treasury) throw new Error('Treasury address not configured (NEXT_PUBLIC_TREASURY_ADDRESS)');
+
+        const provider = new ethers.BrowserProvider((window as any).ethereum);
+        const signer = await provider.getSigner();
 
         const value = ethers.parseEther(String(formData.budget));
         const tx = await signer.sendTransaction({ to: treasury, value });
