@@ -74,3 +74,11 @@ Configured for Replit autoscale deployment with build and start commands in depl
 - Client/server separation for sensitive operations
 - Server-side signing for blockchain transactions
 - Environment variables for all secrets
+
+## Next Steps / Future Enhancements
+- Integrate The Graph for real-time on-chain analytics
+- Implement campaign creation and management
+- Add ad slot minting functionality
+- Build viewer rewards system
+- Add AI-powered ad verification
+- Implement rate limiting and CSRF protection
