@@ -308,26 +308,68 @@ export default function DeveloperDashboard() {
 
         {/* Main Content Area */}
         <div className="bg-white rounded-2xl shadow-md p-6 mb-8">
-          {ads.length === 0 ? (
+          {filteredAds.length === 0 ? (
             <div className="text-center py-12">
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">No ads available right now</h3>
-              <p className="text-gray-600">Check back later or ask advertisers to post campaigns.</p>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                {searchQuery || categoryFilter !== 'all'
+                  ? 'No ads match your filters'
+                  : 'No ads available right now'}
+              </h3>
+              <p className="text-gray-600">
+                {searchQuery || categoryFilter !== 'all'
+                  ? 'Try adjusting your search or filters'
+                  : 'Check back later or ask advertisers to post campaigns.'}
+              </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {ads.map((ad: any) => (
-                <div key={String(ad._id)} className="border-2 border-gray-200 rounded-xl p-6 hover:shadow-lg transition-all">
-                  <div className="flex items-start gap-4 mb-4">
-                    <img src={ad.imageUrl} alt={ad.title || 'creative'} className="w-28 h-20 object-cover rounded" />
-                    <div className="flex-1">
-                      <h3 className="text-lg font-semibold text-gray-900">{ad.title || ad.description}</h3>
-                      <p className="text-sm text-gray-600 mt-2">{ad.description}</p>
-                      <p className="text-sm text-gray-500 mt-2">Budget: {ad.budget} / Impressions: {ad.impressions || 0} / Clicks: {ad.clicks || 0}</p>
-                    </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredAds.map((ad: Campaign) => (
+                <div key={String(ad._id)} className="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 hover:shadow-lg transition-all group">
+                  <div className="aspect-video relative overflow-hidden">
+                    <img 
+                      src={ad.imageUrl} 
+                      alt={ad.title || 'creative'} 
+                      className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-200"
+                    />
+                    {ad.isFreeAd && (
+                      <span className="absolute top-2 right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full">
+                        Free Ad
+                      </span>
+                    )}
                   </div>
-                  <div className="flex gap-3">
-                    <button onClick={() => createPlacement(String(ad._id))} className="flex-1 bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-4 py-3 rounded-lg font-semibold hover:shadow-md">Insert</button>
-                    <a href={ad.targetUrl} target="_blank" rel="noreferrer" className="px-4 py-3 border border-gray-200 rounded-lg text-sm">Preview</a>
+                  <div className="p-6">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-1">{ad.title}</h3>
+                    <p className="text-sm text-gray-600 mb-4 line-clamp-2">{ad.description}</p>
+                    <div className="grid grid-cols-3 gap-4 mb-4 text-center">
+                      <div>
+                        <p className="text-xs text-gray-500">Budget</p>
+                        <p className="text-sm font-semibold">${ad.budget.toFixed(2)}</p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-gray-500">Views</p>
+                        <p className="text-sm font-semibold">{ad.impressions?.toLocaleString() || 0}</p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-gray-500">Clicks</p>
+                        <p className="text-sm font-semibold">{ad.clicks?.toLocaleString() || 0}</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-3">
+                      <button 
+                        onClick={() => createPlacement(String(ad._id))} 
+                        className="flex-1 bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-4 py-2.5 rounded-lg font-semibold hover:shadow-md transition-all text-sm"
+                      >
+                        Insert Ad
+                      </button>
+                      <a 
+                        href={ad.targetUrl} 
+                        target="_blank" 
+                        rel="noreferrer" 
+                        className="px-4 py-2.5 border border-gray-200 rounded-lg text-sm hover:border-gray-300 transition-colors"
+                      >
+                        Preview
+                      </a>
+                    </div>
                   </div>
                 </div>
               ))}
