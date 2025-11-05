@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { useAccount, useSigner } from 'wagmi';
+import { useAccount } from 'wagmi';
 import { ethers } from 'ethers';
 
 export default function CreateCampaign() {
@@ -25,7 +25,6 @@ export default function CreateCampaign() {
   });
 
   const { address, isConnected } = useAccount();
-  const { data: signer } = useSigner();
 
   useEffect(() => {
     fetch('/api/auth/me')
