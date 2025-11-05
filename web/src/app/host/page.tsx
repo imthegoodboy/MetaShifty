@@ -128,6 +128,35 @@ export default function DeveloperDashboard() {
     router.push('/');
   };
 
+  const filteredAds = useMemo(() => {
+    return ads.filter(ad => {
+      const matchesSearch = 
+        searchQuery === '' ||
+        ad.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        ad.description.toLowerCase().includes(searchQuery.toLowerCase());
+      
+      const matchesCategory = 
+        categoryFilter === 'all' ||
+        (categoryFilter === 'free' && ad.isFreeAd) ||
+        (categoryFilter === 'paid' && !ad.isFreeAd);
+
+      return matchesSearch && matchesCategory;
+    }).sort((a, b) => {
+      switch (sortBy) {
+        case 'budget-high':
+          return b.budget - a.budget;
+        case 'budget-low':
+          return a.budget - b.budget;
+        case 'clicks':
+          return b.clicks - a.clicks;
+        case 'oldest':
+          return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+        default: // 'newest'
+          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+      }
+    });
+  }, [ads, searchQuery, categoryFilter, sortBy]);
+
   const createPlacement = async (campaignId: string) => {
     try {
       const res = await fetch('/api/placements/create', {
