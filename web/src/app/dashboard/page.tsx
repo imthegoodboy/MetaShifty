@@ -245,7 +245,7 @@ export default function AdvertiserDashboard() {
               <span className="text-sm font-medium text-gray-700">Polygon Network</span>
             </div>
             <div className="flex items-center gap-2">
-              <Image src="/images/sideshift-logo.jpg" alt="SideShift" width={24} height={24} className="rounded" />
+              <Image src="/images/sideshift-logo.png" alt="SideShift" width={24} height={24} className="rounded" />
               <span className="text-sm font-medium text-gray-700">SideShift Swaps</span>
             </div>
           </div>
