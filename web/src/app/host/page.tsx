@@ -1,18 +1,51 @@
 "use client";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 
+interface Campaign {
+  _id: string;
+  title: string;
+  description: string;
+  imageUrl: string;
+  targetUrl: string;
+  budget: number;
+  impressions: number;
+  clicks: number;
+  isFreeAd: boolean;
+  status: string;
+  createdAt: string;
+}
+
+interface Analytics {
+  totalEarnings: number;
+  totalImpressions: number;
+  totalClicks: number;
+  activeTokens: number;
+  clickRate: number;
+}
+
 export default function DeveloperDashboard() {
   const router = useRouter();
   const [user, setUser] = useState<any>(null);
-  const [ads, setAds] = useState<any[]>([]);
+  const [ads, setAds] = useState<Campaign[]>([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [placementToken, setPlacementToken] = useState<string | null>(null);
-  const [selectedAd, setSelectedAd] = useState<any | null>(null);
+  const [selectedAd, setSelectedAd] = useState<Campaign | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [categoryFilter, setCategoryFilter] = useState('all');
+  const [sortBy, setSortBy] = useState('newest');
+  const [analytics, setAnalytics] = useState<Analytics>({
+    totalEarnings: 0,
+    totalImpressions: 0,
+    totalClicks: 0,
+    activeTokens: 0,
+    clickRate: 0
+  });
+  const [userPlacements, setUserPlacements] = useState<any[]>([]);
 
   useEffect(() => {
     const boot = async () => {
