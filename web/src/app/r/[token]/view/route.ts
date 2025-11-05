@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "../../../../lib/mongo";
 
-export async function GET(req: NextRequest) {
+export async function GET(req: NextRequest, { params }: { params: { token: string } }) {
   try {
-    const { token } = req.params as { token: string };
+    const { token } = params;
     const db = await getDb();
     const placements = db.collection('placements');
     const campaigns = db.collection('campaigns');
