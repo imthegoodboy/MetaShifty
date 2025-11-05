@@ -4,6 +4,8 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { useAccount, useSigner } from 'wagmi';
+import { ethers } from 'ethers';
 
 export default function CreateCampaign() {
   const router = useRouter();
@@ -21,6 +23,9 @@ export default function CreateCampaign() {
     budget: '',
     useFreeCampaign: false,
   });
+
+  const { address, isConnected } = useAccount();
+  const { data: signer } = useSigner();
 
   useEffect(() => {
     fetch('/api/auth/me')
@@ -51,10 +56,28 @@ export default function CreateCampaign() {
     setCreating(true);
 
     try {
+      // If this is a paid campaign, perform an on-chain transfer from the connected wallet
+      let txHash: string | null = null;
+
+      if (!formData.useFreeCampaign) {
+        if (!signer) throw new Error('Please connect your wallet to pay for the campaign');
+        if (!formData.budget || Number(formData.budget) <= 0) throw new Error('Please provide a valid budget in MATIC');
+
+        const treasury = process.env.NEXT_PUBLIC_TREASURY_ADDRESS;
+        if (!treasury) throw new Error('Treasury address not configured (NEXT_PUBLIC_TREASURY_ADDRESS)');
+
+        const value = ethers.parseEther(String(formData.budget));
+        const tx = await signer.sendTransaction({ to: treasury, value });
+        const receipt = await tx.wait();
+        txHash = receipt.transactionHash || tx.hash;
+      }
+
+      const payload = { ...formData, txHash };
+
       const res = await fetch('/api/campaigns/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
 
       const data = await res.json();
