@@ -2,16 +2,7 @@
 
 ## Overview
 MetaShift is a Web3 advertising network where users get paid crypto for viewing or hosting ads. It's like Brave Browser's BAT but fully decentralized, Polygon-powered, and built for the Web3 ecosystem.
-
-## Recent Changes (November 5, 2025)
-- **Migrated from Vercel to Replit**: Configured Next.js to run on Replit with proper port binding (5000) and host configuration (0.0.0.0)
-- **Complete UI Redesign**: New modern landing page with enhanced branding, authentication flow, and dashboards
-- **Authentication System**: Email/password + wallet connection with role selection (Advertiser vs Host)
-- **Advertiser Dashboard**: Shows all running campaigns, total spending, analytics (impressions, clicks), and tracks 5 free ads for new users
-- **Host Dashboard**: Displays ad slots, earnings tracking, and integration instructions
-- **Environment Configuration**: All secrets properly configured in Replit Secrets
-- **Production Ready**: Added deployment configuration for Replit autoscale deployment
-
+ 
 ## Project Architecture
 
 ### Tech Stack
