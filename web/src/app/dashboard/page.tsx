@@ -241,7 +241,7 @@ export default function AdvertiserDashboard() {
           <p className="text-gray-600 mb-6">All transactions are verified on Polygon blockchain with instant crypto payouts via SideShift</p>
           <div className="flex justify-center gap-8">
             <div className="flex items-center gap-2">
-              <Image src="/images/polygon-logo.jpg" alt="Polygon" width={24} height={24} className="rounded" />
+              <Image src="/images/polygon-logo.png" alt="Polygon" width={24} height={24} className="rounded" />
               <span className="text-sm font-medium text-gray-700">Polygon Network</span>
             </div>
             <div className="flex items-center gap-2">

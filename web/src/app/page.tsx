@@ -163,7 +163,7 @@ export default function Home() {
           <p className="text-xl mb-8 text-purple-100">Deployed on Polygon • Powered by SideShift • Analytics by The Graph</p>
           <div className="flex flex-wrap justify-center gap-8 items-center">
             <div className="bg-white rounded-xl p-6 w-40 h-32 flex flex-col items-center justify-center">
-              <Image src="/images/polygon-logo.jpg" alt="Polygon" width={80} height={80} className="mb-2" />
+              <Image src="/images/polygon-logo.png" alt="Polygon" width={80} height={80} className="mb-2" />
               <p className="text-sm text-gray-700 font-semibold">Polygon</p>
             </div>
             <div className="bg-white rounded-xl p-6 w-40 h-32 flex flex-col items-center justify-center">
