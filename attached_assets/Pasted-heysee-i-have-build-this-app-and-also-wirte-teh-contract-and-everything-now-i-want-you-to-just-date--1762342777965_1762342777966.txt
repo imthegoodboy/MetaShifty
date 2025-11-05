@@ -1,0 +1,101 @@
+heysee i have build this app and also wirte teh contract and everything now i want you to just date teh ui and also add teh missing pages and extra feture in teh website make  new ui which look greate and add some image of polygon and soo and mention it made or deployed on teh polygon and also mention teh use of sideshift make this  add new ui and make sure that the new ui must be connect with teh already deployed polygon conract i have already given you all teh .env file teher  is everything wht veer you need jsut make teh ui  good an dadd some extra feture and make sure it connect with each other and deployed on teh polygon 
+add these feture remove teh present ui and add from starting and make it look good
+
+hye when user visit the visit the user teh wbe we will redirect them into the hom epage an din home page we will shwo about our app and and for more navigation user have to signin with emila and password and also they have to connect withteh wallert and while that user will choose user want to signin as a advtier or as a devlpoer accoing to that we will redirect them to thier page and in the delpover page we will shwo the te adv abviabel for them which they can use an teh detail of that adv and also with total price which si set by the advter on that ad and much much avg he can earn and also when user click on any add then we will shwo him teh adv detail and if he want use that add in thier web then user develpoer will click on the code signiut then we will give teh code to that delepoper and user and also monitor their total eanirng in dahsbord and also add teh leadoerd in deplover dashbord and also user can filter teh add acoing to price and also seach teh ad and also add soem extra ai efture in teh delpoer dashbord and
+
+if anyone sigin as a ADVTOIER THEN WE WILL SHOW DIRECTRE TO TEH DEASHBORD OF ADVITER IN THAT WE WILL SHWO TEH ALL TEH ADV HE IS RUNNING AND TOTAL MONEY HE HAVE SEPEND AND ALSOIN TEH 1ST SIGIN WE WILL GIVE TEH ADVITER 5 FREE ADD TO HOST IN OUR WEB WITH ZERO COST AND ALSO IN ADVIER DASHBORD WE WILL SHOW THEM TEH ANALTIST DAHSBORDIN WHICH HE CAN MONITOR TEH HWO MANY PPL HAVE SEEN THIER ADS AND SOO
+
+THIS IS MY WEB DESVTION WHT DOES IT DO AND HOW 
+
+🌌 1. MetaShift — Decentralized “Ad-to-Earn” Economy for Web3 Users
+🔹 Concept:
+
+A Web3 advertising network where users get paid crypto (via SideShift swaps) for viewing or hosting ads on their dApps, websites, or metaverse spaces.
+Like Brave Browser’s BAT, but fully decentralized, Polygon-powered, and AI-verified.
+
+ 
+
+Projects can rent digital ad slots (like on your NFT dashboard, game, or dApp).
+
+Users who host or view the ads earn crypto rewards.
+
+Rewards are instantly swapped to their preferred token using SideShift (e.g., auto-swap MATIC → USDT).
+
+⚙️ Tech Stack:
+
+Polygon (ad slot ownership NFTs + ad payment contracts)
+
+SideShift API (for instant payout swaps)
+
+The Graph (for ad analytics & on-chain data querying)
+
+AI model for ad verification and fraud detection
+
+
+
+ 
+🧍‍♂️ There are 3 main user types:
+
+Advertisers / Projects
+
+Hosts (Website or dApp Owners)
+
+Viewers / General Users
+
+Let’s see how each one experiences MetaShift 👇
+
+🧠 1. Advertiser POV (Project Owner / Brand)
+What They Want:
+
+They want to promote their token, NFT, dApp, or event — but Web3 advertising today is fragmented and centralized (Twitter ads, CEX promotions, etc.).
+
+What They Do:
+
+They visit MetaShift dApp and connect their Polygon wallet.
+
+They choose an ad slot — e.g., a spot on someone’s NFT dashboard, game UI, or blog.
+
+They upload their ad creative (image/video + link) and set a budget in MATIC or USDC.
+
+They deposit funds into a smart contract that holds the payment.
+
+What Happens Behind the Scenes:
+
+The ad is verified by AI (no scams or NSFW content).
+
+The contract locks the ad for the chosen duration and pays hosts automatically based on impressions / clicks recorded on-chain.
+
+Advertisers can see analytics in real-time via The Graph API.
+
+✅ Value for Advertisers:
+
+Transparent pricing, no intermediaries like Google Ads.
+
+Payments and results verified on-chain.
+
+Ads shown only to real humans (AI-bot detection).
+
+🧱 2. Host POV (Developer / Website or dApp Owner)
+What They Want:
+
+They want to earn passive income by renting ad space on their dApp, website, or NFT dashboard.
+
+What They Do:
+
+They connect wallet on MetaShift.
+
+They mint an NFT ad-slot that represents a specific space (e.g., “Header Banner on my site”).
+
+They embed a short JS/React snippet into their frontend — this fetches ad content dynamically from the blockchain.
+
+What Happens Behind the Scenes:
+
+Every time a user visits their site or sees an ad, a view event is logged (using The Graph + oracles).
+
+They get paid automatically in MATIC or USDC, or optionally auto-swapped to their preferred crypto using SideShift.
+
+✅ Value for Hosts:
+
+True passive income — no need for ad networks.
+
+Full control of...

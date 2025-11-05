@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="640" viewBox="0 0 1000 640">
+  <rect width="1000" height="640" fill="#0b0b12"/>
+  <style>
+    .b{fill:#151523;stroke:#2b2c44;stroke-width:2}
+    .t{font:14px Inter,Segoe UI,Arial;fill:#d9daf8}
+    .s{font:12px Inter,Segoe UI,Arial;fill:#8a8bb0}
+    .h{font:18px Inter,Segoe UI,Arial;fill:#ffffff}
+  </style>
+  <!-- Boxes -->
+  <rect x="60" y="60" width="260" height="120" rx="12" class="b"/>
+  <text x="80" y="95" class="h">Advertiser</text>
+  <text x="80" y="120" class="t">Create Campaign</text>
+  <text x="80" y="142" class="s">creativeURI, clickURL, pricePerView</text>
+
+  <rect x="380" y="60" width="560" height="260" rx="12" class="b"/>
+  <text x="400" y="95" class="h">Polygon (Smart Contracts)</text>
+  <text x="400" y="120" class="t">AdSlotNFT · MetaShiftAdManager</text>
+  <text x="400" y="142" class="s">escrow budget · pay per verified view · split 70/20/10</text>
+
+  <rect x="60" y="260" width="260" height="120" rx="12" class="b"/>
+  <text x="80" y="295" class="h">Host</text>
+  <text x="80" y="320" class="t">Mint Ad Slot NFT</text>
+  <text x="80" y="342" class="s">embed script on website/dApp</text>
+
+  <rect x="60" y="440" width="260" height="120" rx="12" class="b"/>
+  <text x="80" y="475" class="h">Viewer</text>
+  <text x="80" y="500" class="t">Connect Wallet</text>
+  <text x="80" y="522" class="s">verified views earn micro‑rewards</text>
+
+  <rect x="380" y="360" width="280" height="200" rx="12" class="b"/>
+  <text x="400" y="395" class="h">Next.js (APIs)</text>
+  <text x="400" y="420" class="t">/api/verify · /api/payView · /api/adserve.js</text>
+  <text x="400" y="442" class="s">AI moderation stub · impression → payView</text>
+
+  <rect x="700" y="360" width="240" height="200" rx="12" class="b"/>
+  <text x="720" y="395" class="h">SideShift API</text>
+  <text x="720" y="420" class="t">quotes & orders</text>
+  <text x="720" y="442" class="s">optional auto‑swap of rewards</text>
+
+  <!-- Arrows -->
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#7779b8"/>
+    </marker>
+  </defs>
+  <g stroke="#7779b8" stroke-width="2" fill="none" marker-end="url(#arrow)">
+    <path d="M320,120 C350,120 360,120 380,120"/>
+    <path d="M320,320 C350,320 360,320 380,320"/>
+    <path d="M190,380 C200,400 210,420 420,420"/>
+    <path d="M520,460 C600,460 640,460 700,460"/>
+    <path d="M660,180 C700,180 720,280 540,360"/>
+  </g>
+</svg>
+
+
