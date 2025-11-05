@@ -70,8 +70,8 @@ export default function CreateCampaign() {
 
         const value = ethers.parseEther(String(formData.budget));
         const tx = await signer.sendTransaction({ to: treasury, value });
-        const receipt = await tx.wait();
-        txHash = receipt.transactionHash || tx.hash;
+  const receipt = await tx.wait();
+  txHash = (receipt && (receipt.transactionHash || (tx as any).hash)) || (tx as any).hash;
       }
 
       const payload = { ...formData, txHash };
