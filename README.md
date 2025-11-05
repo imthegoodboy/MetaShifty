@@ -1,6 +1,6 @@
 # MetaShift — Decentralized Ad‑to‑Earn on Polygon
 
-![MetaShift Logo](web/public/metashift-logo.jpg)
+![MetaShift Logo](web/public/images/metashift-logo.jpg)
 
 MetaShift is a Web3 advertising network where advertisers pay for attention, and hosts/viewers earn crypto for displaying or engaging with ads. It’s like BAT, but fully decentralized, Polygon‑powered, with AI verification and on‑chain payouts. SideShift is used to auto‑swap rewards to the recipient’s preferred asset.
 
