@@ -82,7 +82,7 @@ Update these in the web app env before running locally.
 - Use separate keys for deployer, treasury, and server tasks.
 - Consider multisig or timelocks for treasury and config changes.
 
-## License
-MIT. See headers in contract files.
+Made by 💗 Nikku 
+
 
 
