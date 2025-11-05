@@ -15,8 +15,9 @@ export async function POST(req: NextRequest) {
     const users = db.collection("users");
     const campaigns = db.collection("campaigns");
 
-    const user = await users.findOne({ _id: payload.sub });
-    
+    const { ObjectId } = await import('mongodb');
+    const user = await users.findOne({ _id: new ObjectId(payload.sub) });
+
     if (!user || user.role !== 'advertiser') {
       return NextResponse.json({ error: "Only advertisers can create campaigns" }, { status: 403 });
     }
@@ -39,12 +40,13 @@ export async function POST(req: NextRequest) {
       finalBudget = 0;
       
       await users.updateOne(
-        { _id: payload.sub },
+        { _id: new ObjectId(payload.sub) },
         { $inc: { freeAdsRemaining: -1 } }
       );
     } else {
-      if (finalBudget < 10) {
-        return NextResponse.json({ error: "Minimum budget is $10" }, { status: 400 });
+      // For paid campaigns, require txHash proof from client (the on-chain payment)
+      if (!txHash) {
+        return NextResponse.json({ error: "Missing transaction proof for paid campaign" }, { status: 400 });
       }
     }
 
@@ -60,6 +62,8 @@ export async function POST(req: NextRequest) {
       clicks: 0,
       status: 'active',
       isFreeAd,
+      txHash: txHash || null,
+      paymentConfirmed: !!txHash,
       createdAt: new Date(),
       updatedAt: new Date(),
     };
