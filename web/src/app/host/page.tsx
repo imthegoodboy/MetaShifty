@@ -21,10 +21,12 @@ export default function HostDashboard() {
   const router = useRouter();
   const [user, setUser] = useState<any>(null);
   const [adSlots, setAdSlots] = useState<AdSlot[]>([]);
+  const [ads, setAds] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [totalEarned, setTotalEarned] = useState(0);
-  const [selectedSlot, setSelectedSlot] = useState<AdSlot | null>(null);
+  const [selectedAd, setSelectedAd] = useState<any | null>(null);
   const [showEmbedCode, setShowEmbedCode] = useState(false);
+  const [placementUrl, setPlacementUrl] = useState<string | null>(null);
 
   useEffect(() => {
     fetch('/api/auth/me')
@@ -34,12 +36,13 @@ export default function HostDashboard() {
           router.push('/signin');
           return;
         }
+        // allow developer role (stored as 'host' in DB) — treat as developer UI
         if (data.user.role !== 'host') {
           router.push('/dashboard');
           return;
         }
         setUser(data.user);
-        loadAdSlots();
+        loadAds();
       })
       .catch(() => router.push('/signin'));
   }, []);
@@ -47,12 +50,19 @@ export default function HostDashboard() {
   const loadAdSlots = async () => {
     try {
       const res = await fetch('/api/slots');
+  const loadAds = async () => {
+    try {
+      const res = await fetch('/api/ads/available');
       const data = await res.json();
-      
       if (res.ok) {
-        setAdSlots(data.slots || []);
-        setTotalEarned(data.stats?.totalEarned || 0);
+        setAds(data.campaigns || []);
       }
+    } catch (err) {
+      console.error("Failed to load ads:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
     } catch (err) {
       console.error("Failed to load ad slots:", err);
     } finally {
@@ -67,15 +77,16 @@ export default function HostDashboard() {
 
   const getEmbedCode = (slotId: string) => {
     return `<div id="metashift-ad-${slotId}"></div>
-<script src="https://cdn.metashift.io/ads.js"></script>
-<script>
-  MetaShift.renderAd('${slotId}');
-</script>`;
+    const base = process.env.NEXT_PUBLIC_BASE_URL || window.location.origin;
+    const view = `${base}/r/${token}/view`;
+    const click = `${base}/r/${token}/click`;
+    return `<div id="metashift-ad-${token}"></div>\n<script>\n(async()=>{const root=document.getElementById('metashift-ad-${token}');const a=document.createElement('a');a.href='${click}';a.target='_blank';const img=document.createElement('img');img.src='${view}';img.style.maxWidth='100%';a.appendChild(img);root.appendChild(a);})();\n</script>`;
   };
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
     alert('Embed code copied to clipboard!');
+  alert('Copied!');
   };
 
   if (loading || !user) {
@@ -87,6 +98,7 @@ export default function HostDashboard() {
   }
 
   const totalImpressions = adSlots.reduce((sum, slot) => sum + (slot.totalImpressions || 0), 0);
+  const totalImpressions = ads.reduce((sum, slot) => sum + (slot.impressions || 0), 0);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50 to-purple-50">
@@ -114,7 +126,8 @@ export default function HostDashboard() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-2">Host Dashboard</h1>
-          <p className="text-gray-600">Monetize your website traffic with decentralized advertising</p>
+            <h1 className="text-4xl font-bold text-gray-900 mb-2">Developer Dashboard</h1>
+          <p className="text-gray-600">Browse available ads and insert code snippets into your site</p>
         </div>
 
         <div className="bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500 rounded-2xl p-8 text-white mb-8 shadow-xl">
@@ -218,12 +231,7 @@ export default function HostDashboard() {
         <div className="bg-white rounded-2xl shadow-md p-6 mb-8">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-2xl font-bold text-gray-900">Your Ad Slots</h2>
-            <Link
-              href="/create-slot"
-              className="bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-6 py-2 rounded-lg font-semibold hover:shadow-lg transition-all"
-            >
-              + Create New Slot
-            </Link>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">Available Ads</h3>
           </div>
 
           {adSlots.length === 0 ? (
