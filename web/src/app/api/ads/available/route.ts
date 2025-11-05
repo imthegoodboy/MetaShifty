@@ -11,7 +11,14 @@ export async function GET(req: NextRequest) {
     const db = await getDb();
     const campaigns = db.collection("campaigns");
 
-    const active = await campaigns.find({ status: 'active', paymentConfirmed: true }).sort({ createdAt: -1 }).toArray();
+    // Show both paid campaigns (with txHash) and free campaigns
+    const active = await campaigns.find({
+      status: 'active',
+      $or: [
+        { paymentConfirmed: true }, // paid campaigns
+        { isFreeAd: true }          // free campaigns
+      ]
+    }).sort({ createdAt: -1 }).toArray();
 
     return NextResponse.json({ campaigns: active });
   } catch (err) {
