@@ -11,7 +11,7 @@ MetaShift is a Web3 advertising network where advertisers pay for attention, and
 - Payouts are split automatically (default 70% Host / 20% Viewer / 10% Treasury) and can be auto‑swapped via SideShift.
 
 ## How It Works
-![Architecture](web/public/metashift-architecture.svg)
+ 
 
 1) Advertiser submits ad creative + budget → Smart contract escrows funds.
 2) Host’s site loads the embed snippet → fetches ad creative to display.
