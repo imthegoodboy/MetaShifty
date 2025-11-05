@@ -53,7 +53,7 @@ export default function SignUpPage() {
       <div className="max-w-md w-full">
           <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2 mb-4">
-            <Image src="/images/metashift-logo.svg" alt="MetaShift" width={50} height={50} />
+            <Image src="/images/metashift-logo.jpg" alt="MetaShift" width={50} height={50} />
             <span className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent">
               MetaShift
             </span>

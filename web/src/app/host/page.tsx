@@ -199,7 +199,7 @@ export default function DeveloperDashboard() {
       <nav className="bg-white/80 backdrop-blur-md border-b sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
           <Link href="/" className="flex items-center gap-3">
-            <Image src="/images/metashift-logo.svg" alt="MetaShift" width={40} height={40} className="rounded-lg" />
+            <Image src="/images/metashift-logo.jpg" alt="MetaShift" width={40} height={40} className="rounded-lg" />
             <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">MetaShift</span>
           </Link>
           <div className="flex items-center gap-4">
