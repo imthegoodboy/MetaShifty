@@ -1,4 +1,4 @@
-# MetaShift — Decentralized Ad‑to‑Earn on Polygon
+# MetaShift — Decentralized Advertising 
 
 ![MetaShift Logo](web/public/images/metashift-logo.jpg)
 
@@ -83,6 +83,7 @@ Update these in the web app env before running locally.
 - Consider multisig or timelocks for treasury and config changes.
 
 Made by 💗 Nikku 
+
 
 
 
