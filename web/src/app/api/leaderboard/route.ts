@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { ObjectId } from "mongodb";
 import { getDb } from "../../../lib/mongo";
 import { rateLimitMiddleware, normalRateLimit } from "../../../lib/ratelimit";
 
@@ -64,8 +65,7 @@ export async function GET(req: NextRequest) {
     ]).toArray();
 
     // Look up advertiser details
-    const { ObjectId } = await import("mongodb");
-    const advertiserIds = topAdvertisers
+    const advertiserIds: ObjectId[] = topAdvertisers
       .map((a) => {
         try {
           return new ObjectId(a._id);
@@ -73,11 +73,13 @@ export async function GET(req: NextRequest) {
           return null;
         }
       })
-      .filter(Boolean);
+      .filter((id): id is ObjectId => id !== null);
 
-    const advertiserUsers = await users
-      .find({ _id: { $in: advertiserIds } })
-      .toArray();
+    const advertiserUsers = advertiserIds.length === 0
+      ? []
+      : await users
+          .find({ _id: { $in: advertiserIds } })
+          .toArray();
 
     const advertiserMap = new Map(
       advertiserUsers.map((u) => [String(u._id), u])
