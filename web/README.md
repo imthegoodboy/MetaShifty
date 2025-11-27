@@ -9,6 +9,9 @@ Environment variables required (create `.env.local`):
 - POLYGON_RPC
 - SERVER_SIGNER_KEY
 - SIDESHIFT_API_KEY
+- MONGO_URL (MongoDB connection string)
+- MONGO_DB (optional, defaults to `metashift`)
+- WEB_SECRET (long random string for signing tokens)
 
 Run:
 

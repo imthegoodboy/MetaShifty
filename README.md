@@ -28,7 +28,8 @@ MetaShift is a Web3 advertising network where advertisers pay for attention, and
 - Blockchain: Polygon (Amoy testnet / Mainnet)
 - Contracts: Solidity, Hardhat, OpenZeppelin
 - Frontend: Next.js (App Router), Tailwind, RainbowKit, wagmi, viem, Ethers v6, Zustand, React Query
-- Data/Indexing: The Graph (subgraph placeholder included)
+- Data: MongoDB (users, campaigns, placements, analytics)
+- Indexing: The Graph (subgraph placeholder included)
 - Payments/Swap: SideShift API (quotes + orders)
 - AI Verification: API stub ready for provider integration
 
@@ -63,12 +64,28 @@ Update these in the web app env before running locally.
      - `POLYGON_RPC=...` (Amoy RPC)
      - `SERVER_SIGNER_KEY=0x<low_priv_dev_key_with_test_MATIC>`
      - `SIDESHIFT_API_KEY=<your_sideshift_api_key>`
+     - `MONGO_URL=mongodb+srv://...` (MongoDB connection string)
+     - `MONGO_DB=metashift` (optional, defaults to `metashift`)
+     - `WEB_SECRET=...` (long random string for signing tokens)
    - Run: `npm run dev`
 
 3) Use It
    - Host: `/host` → mint ad slot → copy embed snippet.
    - Advertiser: `/advertiser` → create + fund a campaign.
    - Test a payout: POST `/api/payView` with `{ id, viewer, nonce }`.
+   - View analytics & leaderboard: `/leaderboard` (top hosts/advertisers + platform stats).
+   - View your transaction history: `/transactions` (requires sign-in).
+   - Manage profile & wallet: `/settings` (requires sign-in).
+
+## Recent Web App Changes
+- Switched the global Wagmi/RainbowKit configuration to use the Polygon Amoy testnet (`polygonAmoy`) and added a `NetworkStatus` pill so users can see and switch to the correct network.
+- Added a reusable toast system (`ToastContainer` + `toast.*` helpers backed by Zustand) for success/error/info messages across pages like Settings.
+- Introduced MongoDB-backed APIs and dashboards:
+  - `/api/leaderboard` + `/leaderboard` page show top hosts/advertisers and global stats from `users`, `campaigns`, and `placements` collections.
+  - `/api/transactions` + `/transactions` page build a per-user transaction history (campaign funding + placement earnings) and summary cards.
+  - `/api/user/update` + `/settings` page let signed-in users edit display name, wallet address, and password with server-side validation.
+- Implemented basic in-memory rate limiting middleware (`rateLimitMiddleware`) for sensitive API routes (profile updates, analytics) to make abuse harder.
+- Added UI polish components like skeleton loaders, analytics charts, toast animations, and line-clamp utilities to make dashboards feel faster and cleaner.
 
 ## Production Hardening
 - Replace server‑side signer with user‑signed tx flows or a secure backend service.
