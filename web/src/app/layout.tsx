@@ -3,9 +3,10 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { getDefaultConfig, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import { WagmiProvider } from 'wagmi';
-import { polygon } from 'wagmi/chains';
+import { polygonAmoy } from 'wagmi/chains';
 import '@rainbow-me/rainbowkit/styles.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import ToastContainer from '../components/Toast';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,7 +21,7 @@ const geistMono = Geist_Mono({
 const config = getDefaultConfig({
   appName: 'MetaShift',
   projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_ID || 'demo',
-  chains: [polygon],
+  chains: [polygonAmoy],
 });
 
 // Create a client
@@ -49,6 +50,7 @@ export default function RootLayout({
           <QueryClientProvider client={queryClient}>
             <RainbowKitProvider>
               {children}
+              <ToastContainer />
             </RainbowKitProvider>
           </QueryClientProvider>
         </WagmiProvider>
