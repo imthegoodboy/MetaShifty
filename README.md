@@ -99,7 +99,8 @@ Update these in the web app env before running locally.
 - Use separate keys for deployer, treasury, and server tasks.
 - Consider multisig or timelocks for treasury and config changes.
 
-Made by 💗 Nikku 
+Made by 💗 Nikku for u
+
 
 
 
